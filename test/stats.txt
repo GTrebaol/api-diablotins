@@ -1,0 +1,13 @@
+{
+    "id": "76561198003544651",
+    "limit": 20,
+    "offset": 0,
+    "mode": "5v5",
+    "getPosition": true,
+    "entity_type": "player",
+    "filter": "elo",
+    "order_by": ["elo", "desc"],
+    "ranked": true,
+    "searchTerm": "",
+    "period": "alltime"
+}

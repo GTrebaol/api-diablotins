@@ -1,0 +1,45 @@
+{
+"config": {
+"target": "http://localhost:8082/api",
+"phases": [
+    {"duration": 30, "arrivalCount": 25, "name": "Minor load"},
+    {"pause": 4},
+    {"duration": 45, "arrivalCount": 50, "name": "Low load"},
+    {"pause": 3},
+    {"duration": 60, "arrivalRate": 100, "name": "Normal load"},
+    {"pause": 2},
+    {"duration": 90, "arrivalRate": 500, "name": "Ultra high load phase"},
+    {"pause": 1},
+    {"duration": 120, "arrivalRate": 1000, "name": "Brutal load phase"}
+],
+"payload": [{
+    "path": "./stats.csv",
+    "fields": ["id", "friendsOnly", "teamMembersOnly", "continent", "country", "gamemode", "filter", "search", "limit", "offset", "period", "entity_type", "playerTeamsOnly"]
+}]
+},
+"scenarios": [
+    {
+        "flow": [
+            {
+                "post": {
+                    "url": "/stats",
+                    "json": {
+                        "id": "{{ id }}",
+                        "friendsOnly": "{{ friendsOnly }}",
+                        "teamMembersOnly": "{{ teamMembersOnly }}",
+                        "continent": "{{ continent }}",
+                        "country": "{{ country }}",
+                        "gamemode": "{{ gamemode }}",
+                        "filter": "{{ filter }}",
+                        "search": "{{ search }}",
+                        "limit": "{{ limit }}",
+                        "offset": "{{ offset }}",
+                        "period": "{{ period }}",
+                        "entity_type": "{{ entity_type }}"
+                    }
+                }
+            }
+        ]
+    }
+]
+}

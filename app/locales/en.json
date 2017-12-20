@@ -1,0 +1,8 @@
+{
+  "token.expired" : "Token expired! Please login again.",
+  "token.failed" : "Failed to authenticate token.",
+  "token.empty" : "No token provided.",
+  "user.undefined" : "Sorry, this user does not exist.",
+  "password.wrong" : "Looks like you entered a wrong password. Please try again!",
+  "server.error" : "A server error occurred while processing your request! Please try again later."
+}
