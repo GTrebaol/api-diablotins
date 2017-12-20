@@ -1,11 +1,10 @@
 /**
  * User services
  *
- * @param models
+ * @param UserModel
  */
-UserService = function() {
-  const User = require('../models/user');
-  var userService = {};
+UserService = function(UserModel) {
+  let userService = {};
 
   /**
    *
@@ -13,7 +12,8 @@ UserService = function() {
    * @returns {*}
    */
   userService.add = function(user) {
-    return new User({
+    console.log(user);
+    return new UserModel({
       name: user.name,
       password: user.password,
       is_admin: user.is_admin
@@ -28,13 +28,13 @@ UserService = function() {
    */
   userService.update = function(id, user) {
     if (user.password) {
-      return new User({user_id: parseInt(id)}).save({
+      return new UserModel({user_id: parseInt(id)}).save({
         name: user.name,
         password: user.password,
         is_admin: user.is_admin
       }, {patch: true});
     }
-    return new User({user_id: parseInt(id)}).save({
+    return new UserModel({user_id: parseInt(id)}).save({
       name: user.name,
       is_admin: user.is_admin
     }, {patch: true});
@@ -47,7 +47,7 @@ UserService = function() {
    * @returns {*}
    */
   userService.updateSelf = function(id, user) {
-    return new User({user_id: parseInt(id)}).save({
+    return new UserModel({user_id: parseInt(id)}).save({
       password: user.encpassword
     }, {patch: true});
   };
@@ -58,7 +58,7 @@ UserService = function() {
    * @returns {*}
    */
   userService.delete = function(id) {
-    return new User({user_id: parseInt(id)}).destroy();
+    return new UserModel({user_id: parseInt(id)}).destroy();
   };
 
   /**
@@ -66,25 +66,25 @@ UserService = function() {
    * @param id
    * @returns {*}
    */
-  userService.fetchUserById = function(id) {
-    return new User({user_id: parseInt(id)}).fetch({columns: ['id', 'name', 'is_admin']});
+  userService.findById = function(id) {
+    return new UserModel({user_id: parseInt(id)}).fetch({columns: ['id', 'name', 'is_admin']});
   };
 
   /**
    *
-   * @param id
    * @returns {*}
+   * @param name
    */
-  userService.fetchUserByName = function(name) {
-    return new User({name: name}).fetch({columns: ['id', 'name', 'is_admin']});
+  userService.findByName = function(name) {
+    return new UserModel({name: name}).fetch({columns: ['id', 'name', 'is_admin']});
   };
 
   /**
    *
    * @returns {*|A}
    */
-  userService.fetchAll = function() {
-    return new User().fetchAll({columns: ['id', 'name', 'is_admin']});
+  userService.findAll = function() {
+    return new UserModel().fetchAll({columns: ['id', 'name', 'is_admin']});
   };
 
   return userService;

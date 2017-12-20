@@ -5,21 +5,23 @@
 /**
  * Module dependencies
  */
-const express = require('express');
+
 const async = require('async');
-const bigInt = require('big-integer');
+const auth = require(__dirname + '/app/authentication');
 const bcrypt = require('bcrypt-nodejs');
+const bigInt = require('big-integer');
 const bodyParser = require('body-parser');
+const express = require('express');
+const fs = require('fs');
+const http = require('http');
+const i18n = require('i18n');
+const jwt = require('jsonwebtoken');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
-const http = require('http');
-const jwt = require('jsonwebtoken');
 const path = require('path');
-const fs = require('fs');
-const i18n = require('i18n');
-const winston = require('winston');
 const routeDir = __dirname + '/app/routes';
 const routeFiles = fs.readdirSync(routeDir);
+const winston = require('winston');
 
 app = module.exports = express();
 
@@ -28,7 +30,7 @@ app = module.exports = express();
  */
 
 // env config
-var env = process.env.NODE_ENV || 'development';
+let env = process.env.NODE_ENV || 'development';
 
 //i18n config
 i18n.configure({
@@ -40,7 +42,7 @@ i18n.init();
 app.set('i18n', i18n);
 
 //logger config
-var logger = new (winston.Logger)({
+let logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)()
 //      new (winston.transports.File)({ filename: __dirname+'/logs/main.log' }) --- disabled file logging for the time being 
@@ -63,7 +65,7 @@ app.use(methodOverride());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 // Read config file
-var conf = require(__dirname + '/app/config/' + env + '.conf.js');
+let conf = require(__dirname + '/app/config/' + env + '.conf.js');
 
 //Set config values
 app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || conf.ipAddress);
@@ -75,33 +77,10 @@ app.set('bigInt', bigInt);
 app.set('bcrypt', bcrypt);
 app.set('jwt', jwt);
 app.set('async', async);
-app.set('auth', function(req, res, next) {
-  //Check header or url parameters or post parameters for token
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-  //Decode token
-  if (token) {
-
-    //Verify secret and check the expiration datetime
-    jwt.verify(token, app.get('secret'), function(err, decoded) {
-      if (err) {
-        if (err.name === 'TokenExpiredError') {
-          return res.status(403).json({code: 403, message: i18n.__('token.expired')});
-        }
-        return res.status(403).json({code: 403, message: i18n.__('token.failed')});
-      } else {
-        //Save to request for use in other routes
-        req.decoded = decoded;
-        next();
-      }
-    });
-  } else {
-    return res.status(403).send({code: 403, message: i18n.__('token.empty')});
-  }
-});
+app.set('auth', auth);
 
 // Register services module
-var services = require(__dirname + '/app/services')(conf);
+let services = require(__dirname + '/app/services')(conf);
 app.set('services', services);
 
 
@@ -118,7 +97,7 @@ app.use(function(req, res, next) {
 
 //Initialize routes
 routeFiles.forEach(function(file) {
-  var filePath = path.resolve(__dirname, routeDir, file), route = require(filePath);
+  let filePath = path.resolve(__dirname, routeDir, file), route = require(filePath);
   logger.info('Loading routes for ' + file);
   route.load(app);
 });
@@ -143,7 +122,7 @@ app.all('/*', function(req, res, next) {
 /**
  * Start Server
  */
-var server = http.createServer(app);
+let server = http.createServer(app);
 
 server.listen(app.get('port'), app.get('ipaddress'), function() {
   logger.info('Server running and listening on port ' + app.get('port'));

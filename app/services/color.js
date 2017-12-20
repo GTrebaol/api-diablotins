@@ -1,11 +1,11 @@
 /**
  * color services
  *
- * @param models
+ * @param ColorModel
  */
-ColorService = function(models) {
+ColorService = function(ColorModel) {
 
-  var color = {};
+  let color = {};
 
   /**
    *
@@ -13,7 +13,7 @@ ColorService = function(models) {
    * @returns {*}
    */
   color.add = function(color) {
-    return new models.color({
+    return new ColorModel({
       value: color.value
     }).save();
   };
@@ -25,7 +25,7 @@ ColorService = function(models) {
    * @returns {*}
    */
   color.update = function(id, color) {
-    return new models.color({color_id: parseInt(id)}).save({
+    return new ColorModel({color_id: parseInt(id)}).save({
       value: color.value
     }, {patch: true});
   };
@@ -36,7 +36,7 @@ ColorService = function(models) {
    * @returns {*}
    */
   color.delete = function(id) {
-    return new models.color({color_id: parseInt(id)}).destroy();
+    return new ColorModel({color_id: parseInt(id)}).destroy();
   };
 
   /**
@@ -44,7 +44,7 @@ ColorService = function(models) {
    * @returns A collection of colors
    */
   color.fetchAll = function() {
-    return new models.color().fetchAll();
+    return new ColorModel().fetchAll();
   };
 
   /**
@@ -54,7 +54,7 @@ ColorService = function(models) {
    * @returns color model
    */
   color.findById = function(id) {
-    return new models.color({color_id: parseInt(id)}).fetch();
+    return new ColorModel({color_id: parseInt(id)}).fetch();
   };
 
 
@@ -63,7 +63,7 @@ ColorService = function(models) {
    * @returns {*}
    */
   color.getAmount = function() {
-    return new models.color().count();
+    return new ColorModel().count();
   };
 
   return color;

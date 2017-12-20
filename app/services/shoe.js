@@ -1,11 +1,11 @@
 /**
  * shoe services
  *
- * @param Shoe model
+ * @param ShoeModel
  */
-ShoeService = function(Shoe) {
+ShoeService = function(ShoeModel) {
 
-  var shoeService = {};
+  let shoeService = {};
 
   /**
    *
@@ -13,7 +13,7 @@ ShoeService = function(Shoe) {
    * @returns {*}
    */
   shoeService.add = function(shoe) {
-    return new Shoe({
+    return new ShoeModel({
       name: shoe.name,
       size_id: shoe.size_id,
       color_id: shoe.color_id
@@ -27,7 +27,7 @@ ShoeService = function(Shoe) {
    * @returns {*}
    */
   shoeService.update = function(id, shoe) {
-    return new Shoe({shoe_id: parseInt(id)}).save({
+    return new ShoeModel({shoe_id: parseInt(id)}).save({
       name: shoe.name,
       size_id: shoe.size_id,
       color_id: shoe.color_id
@@ -40,7 +40,7 @@ ShoeService = function(Shoe) {
    * @returns {*}
    */
   shoeService.delete = function(id) {
-    return new Shoe({shoe_id: parseInt(id)}).destroy();
+    return new ShoeModel({shoe_id: parseInt(id)}).destroy();
   };
 
   /**
@@ -48,18 +48,9 @@ ShoeService = function(Shoe) {
    * @returns A collection of shoes
    */
   shoeService.findAll = function() {
-    return new Shoe().fetchAll();
+    return new ShoeModel().fetchAll();
   };
 
-  /**
-   * find a shoe by its id
-   *
-   * @param id
-   * @returns shoe model
-   */
-  shoeService.findByCategory = function(id) {
-    return new Shoe({shoe_id: parseInt(id)}).fetch();
-  };
 
   /**
    * find a shoe by its id
@@ -68,7 +59,9 @@ ShoeService = function(Shoe) {
    * @returns shoe model
    */
   shoeService.findById = function(id) {
-    return new Shoe({shoe_id: parseInt(id)}).fetch();
+    return new ShoeModel({shoe_id: parseInt(id)}).fetch({
+      withRelated: ['brand', 'sizes', 'colors', 'categories']
+    });
   };
 
   /**
@@ -78,7 +71,7 @@ ShoeService = function(Shoe) {
    * @returns shoe model
    */
   shoeService.findShoeCategoriesById = function(id) {
-    return new Shoe({shoe_id: parseInt(id)}).fetch({
+    return new ShoeModel({shoe_id: parseInt(id)}).fetch({
       columns: ['shoe_id'],
       withRelated: ['categories']
     });
@@ -90,18 +83,24 @@ ShoeService = function(Shoe) {
    * @returns {*}
    */
   shoeService.getAmount = function() {
-    return new Shoe().count();
+    return new ShoeModel().count();
   };
 
   /**
    * find a shoe by its name
    *
-   * @param id
    * @returns shoe model
+   * @param searchTerm
    */
-  shoeService.findByName = function(name) {
-    return new Shoe({name: name}).fetch();
+  shoeService.findByName = function(searchTerm) {
+    return new ShoeModel().query(function(qb) {
+      qb.where('name', 'like', '"%' + searchTerm + '%"');
+    }).fetchAll({
+      withRelated: ['brand', 'sizes', 'colors', 'categories']
+    });
   };
+
+
   return shoeService;
 };
 

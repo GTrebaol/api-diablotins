@@ -3,9 +3,9 @@
  *
  * @param models
  */
-CategoryService = function(models) {
+CategoryService = function(CategoryModel) {
 
-  var category = {};
+  let category = {};
 
   /**
    *
@@ -13,7 +13,7 @@ CategoryService = function(models) {
    * @returns {*}
    */
   category.add = function(category) {
-    return new models.category({
+    return new CategoryModel({
       name: category.name
     }).save();
   };
@@ -25,7 +25,7 @@ CategoryService = function(models) {
    * @returns {*}
    */
   category.update = function(id, category) {
-    return new models.category({category_id: parseInt(id)}).save({
+    return new CategoryModel({category_id: parseInt(id)}).save({
       name: category.name
     }, {patch: true});
   };
@@ -36,7 +36,7 @@ CategoryService = function(models) {
    * @returns {*}
    */
   category.delete = function(id) {
-    return new models.category({category_id: parseInt(id)}).destroy();
+    return new CategoryModel({category_id: parseInt(id)}).destroy();
   };
 
   /**
@@ -44,7 +44,7 @@ CategoryService = function(models) {
    * @returns A collection of categorys
    */
   category.fetchAll = function() {
-    return new models.category().fetchAll();
+    return new CategoryModel().fetchAll();
   };
 
   /**
@@ -54,7 +54,19 @@ CategoryService = function(models) {
    * @returns category model
    */
   category.findById = function(id) {
-    return new models.category({category_id: parseInt(id)}).fetch();
+    return new CategoryModel({category_id: parseInt(id)}).fetch();
+  };
+
+  /**
+   * find a category by its name
+   *
+   * @param searchTerm
+   * @returns category model
+   */
+  category.findByName = function(searchTerm) {
+    return new CategoryModel().query(function(qb) {
+      qb.whereRaw('MATCH (name) AGAINST ("+' + searchTerm + '*" IN BOOLEAN MODE)');
+    }).fetchAll();
   };
 
 
@@ -63,7 +75,7 @@ CategoryService = function(models) {
    * @returns {*}
    */
   category.getAmount = function() {
-    return new models.category().count();
+    return new CategoryModel().count();
   };
 
   return category;

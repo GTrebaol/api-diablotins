@@ -3,22 +3,22 @@
  *
  * @param models
  */
-SearchService = function() {
+SearchService = function(models) {
 
-  var searchService = {};
-  const Shoe = require('../models/shoe');
-  const Category = require('../models/category');
+  let searchService = {};
+  const ShoeModel = models.shoe;
+  const CategoryModel = models.category;
 
 
   searchService.findShoeByName = function(searchTerm) {
-    return new Shoe().query(function(qb) {
+    return new ShoeModel().query(function(qb) {
       qb.whereRaw('MATCH (name) AGAINST ("+' + searchTerm + '*" IN BOOLEAN MODE)');
     }).fetchAll({withRelated: ['category']});
   };
 
 
   searchService.findCategoryByName = function(searchTerm) {
-    return new Category().query(function(qb) {
+    return new CategoryModel().query(function(qb) {
       qb.whereRaw('MATCH (name) AGAINST ("+' + searchTerm + '*" IN BOOLEAN MODE)');
     }).fetchAll();
   };
