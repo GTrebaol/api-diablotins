@@ -2,6 +2,7 @@
  * shoe services
  *
  * @param ShoeModel
+ * @param CategoryModel
  */
 ShoeService = function(ShoeModel) {
 
@@ -65,16 +66,31 @@ ShoeService = function(ShoeModel) {
   };
 
   /**
-   * find a shoe by its id
+   * find list of shoes by its category id
    *
+   * @returns list of shoe model
    * @param id
-   * @returns shoe model
    */
-  shoeService.findShoeCategoriesById = function(id) {
-    return new ShoeModel({shoe_id: parseInt(id)}).fetch({
-      columns: ['shoe_id'],
-      withRelated: ['categories']
-    });
+  shoeService.findByCategoryId = function(id) {
+    return new ShoeModel().query(function() {
+      this.innerJoin('shoe_categories', 'shoe_categories.shoe_id', 'shoe.shoe_id')
+        .innerJoin('category', 'shoe_categories.category_id', 'category.category_id')
+        .where('category.category_id', id);
+    }).fetchAll();
+  };
+
+  /**
+   * find a list of shoes from its collection id
+   *
+   * @returns list of shoe model
+   * @param id
+   */
+  shoeService.findByCollectionId = function(id) {
+    return new ShoeModel().query(function() {
+      this.innerJoin('shoe_collection', 'shoe_collection.shoe_id', 'shoe.shoe_id')
+        .innerJoin('collection', 'shoe_collection.collection_id', 'collection.collection_id')
+        .where('collection.collection_id', id);
+    }).fetchAll();
   };
 
 

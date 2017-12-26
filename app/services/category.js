@@ -1,7 +1,7 @@
 /**
  * category services
  *
- * @param models
+ * @param CategoryModel
  */
 CategoryService = function(CategoryModel) {
 

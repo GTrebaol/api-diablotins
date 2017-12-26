@@ -8,12 +8,13 @@ module.exports.load = function(app) {
 
   app.post('/api/auth', function(req, res) {
     logger.info("Routes - Auth::authUser");
-    services.user.fetchUserByName(req.body.username).then(function(user) {
+    console.log(req.body);
+    services.user.findByName(req.body.username).then(function(user) {
       if (!user) {
         return res.status(401).json({message: i18n.__('user.undefined')});
       } else {
         user.authenticate(req.body.password).then(function(user) {
-          var token = jwt.sign(
+          let token = jwt.sign(
             {id: user.id, is_admin: user.attributes.is_admin},
             app.get('secret'), {
               expiresInMinutes: 120

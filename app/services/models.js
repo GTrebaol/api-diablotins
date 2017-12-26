@@ -2,6 +2,7 @@
  *  Instanciate the models based on the database schema.
  *  We need to describe the relationships between the entities
  *
+ * @param secret
  * @param bookshelf
  * @returns {{}}
  */
@@ -19,6 +20,10 @@ module.exports = function(secret, bookshelf) {
     idAttribute: 'color_id'
   });
 
+  let Collection = bookshelf.Model.extend({
+    tableName: 'collection',
+    idAttribute: 'collection_id'
+  });
 
   let Shoe = bookshelf.Model.extend({
     tableName: 'shoe',
@@ -34,6 +39,9 @@ module.exports = function(secret, bookshelf) {
     },
     brand: function() {
       return this.belongsTo(Brand, 'brand_id')
+    },
+    collections: function() {
+      return this.belongsToMany(Collection, 'shoe_collection', 'shoe_id', 'collection_id')
     }
   });
 
@@ -66,6 +74,7 @@ module.exports = function(secret, bookshelf) {
   models.color = Color;
   models.user = User;
   models.brand = Brand;
+  models.collection = Collection;
 
   return models;
 

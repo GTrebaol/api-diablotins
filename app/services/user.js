@@ -76,7 +76,7 @@ UserService = function(UserModel) {
    * @param name
    */
   userService.findByName = function(name) {
-    return new UserModel({name: name}).fetch({columns: ['id', 'name', 'is_admin']});
+    return new UserModel({name: name}).fetch();
   };
 
   /**
@@ -84,7 +84,7 @@ UserService = function(UserModel) {
    * @returns {*|A}
    */
   userService.findAll = function() {
-    return new UserModel().fetchAll({columns: ['id', 'name', 'is_admin']});
+    return new UserModel().fetchAll({columns: ['name']});
   };
 
   return userService;

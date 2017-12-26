@@ -20,7 +20,7 @@ module.exports.load = function(app) {
   app.get('/api/users', requiresAuth, function(req, res) {
     logger.info("Routes - User::getUserList");
     if (req.decoded.is_admin) {
-      services.user.fetchAll().then(function(users) {
+      services.user.findAll().then(function(users) {
         return res.json(users);
       }).catch(function(error) {
         //TODO Handle error
