@@ -1,10 +1,10 @@
 module.exports.load = function(app) {
-  var services = app.get('services');
-  var logger = app.get('logger');
-  var async = app.get('async');
-  var bcrypt = app.get('bcrypt');
-  var requiresAuth = app.get('auth');
-  var i18n = app.get('i18n');
+  let services = app.get('services');
+  let logger = app.get('logger');
+  let async = app.get('async');
+  let bcrypt = app.get('bcrypt');
+  let requiresAuth = app.get('auth');
+  let i18n = app.get('i18n');
 
   app.get('/api/user', requiresAuth, function(req, res) {
     logger.info("Routes - User::getUser");

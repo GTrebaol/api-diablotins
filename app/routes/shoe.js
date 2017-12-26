@@ -1,7 +1,7 @@
 module.exports.load = function(app) {
-  var services = app.get('services');
-  var logger = app.get('logger');
-  var async = app.get('async');
+  let services = app.get('services');
+  let logger = app.get('logger');
+  let async = app.get('async');
 
   app.get('/api/shoes', function(req, res) {
     logger.info("Routes - shoe::fetchAll");

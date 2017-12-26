@@ -1,10 +1,10 @@
 module.exports.load = function(app) {
 
-  var logger = app.get('logger');
-  var services = app.get('services');
-  var jwt = app.get('jwt');
-  var bcrypt = app.get('bcrypt');
-  var i18n = app.get('i18n');
+  let logger = app.get('logger');
+  let services = app.get('services');
+  let jwt = app.get('jwt');
+  let bcrypt = app.get('bcrypt');
+  let i18n = app.get('i18n');
 
   app.post('/api/auth', function(req, res) {
     logger.info("Routes - Auth::authUser");
