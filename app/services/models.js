@@ -25,6 +25,17 @@ module.exports = function(secret, bookshelf) {
     idAttribute: 'collection_id'
   });
 
+  let Description = bookshelf.Model.extend({
+    tableName: 'description',
+    idAttribute: 'description_id'
+  });
+
+  let Image = bookshelf.Model.extend({
+    tableName: 'image',
+    idAttribute: 'image_id'
+  });
+
+
   let Shoe = bookshelf.Model.extend({
     tableName: 'shoe',
     idAttribute: 'shoe_id',
@@ -42,6 +53,12 @@ module.exports = function(secret, bookshelf) {
     },
     collections: function() {
       return this.belongsToMany(Collection, 'shoe_collection', 'shoe_id', 'collection_id')
+    },
+    description: function(){
+      return this.belongsTo(Description, 'description_id');
+    },
+    pictures: function(){
+      return this.hasMany(Image, 'shoe_id')
     }
   });
 

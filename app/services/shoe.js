@@ -61,7 +61,7 @@ ShoeService = function(ShoeModel) {
    */
   shoeService.findById = function(id) {
     return new ShoeModel({shoe_id: parseInt(id)}).fetch({
-      withRelated: ['brand', 'sizes', 'colors', 'categories']
+      withRelated: ['brand', 'sizes', 'colors', 'categories', 'description', 'collections', 'pictures']
     });
   };
 
@@ -90,7 +90,9 @@ ShoeService = function(ShoeModel) {
       this.innerJoin('shoe_collection', 'shoe_collection.shoe_id', 'shoe.shoe_id')
         .innerJoin('collection', 'shoe_collection.collection_id', 'collection.collection_id')
         .where('collection.collection_id', id);
-    }).fetchAll();
+    }).fetchAll({
+      withRelated: ['pictures']
+    });
   };
 
 
