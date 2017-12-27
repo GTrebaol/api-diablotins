@@ -45,7 +45,7 @@ app.set('i18n', i18n);
 let logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)()
-//      new (winston.transports.File)({ filename: __dirname+'/logs/main.log' }) --- disabled file logging for the time being 
+    //      new (winston.transports.File)({ filename: __dirname+'/logs/main.log' }) --- disabled file logging for the time being 
   ]
 });
 if (env === "production") {
@@ -85,7 +85,7 @@ app.set('services', services);
 
 
 //Add CORS support
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   if (req.method == 'OPTIONS') {
@@ -96,17 +96,17 @@ app.use(function(req, res, next) {
 });
 
 //Initialize routes
-routeFiles.forEach(function(file) {
+routeFiles.forEach(function (file) {
   let filePath = path.resolve(__dirname, routeDir, file), route = require(filePath);
   logger.info('Loading routes for ' + file);
   route.load(app);
 });
 
 //Add handlers for errors and exceptions thrown by the middleware
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   logger.warn(err);
   if (err.status) {
-    return res.status(err.statusCode).send({code: err.statusCode, message: 'Invalid Request Body at: ' + err.body});
+    return res.status(err.statusCode).send({ code: err.statusCode, message: 'Invalid Request Body at: ' + err.body });
   }
   return res.status(500).send({
     code: 500,
@@ -115,8 +115,8 @@ app.use(function(err, req, res, next) {
 });
 
 //Handle all other routes
-app.all('/*', function(req, res, next) {
-  res.status(404).send({code: 404, message: 'API route not found'});
+app.all('/*', function (req, res, next) {
+  res.status(404).send({ code: 404, message: 'API route not found' });
 });
 
 /**
@@ -124,7 +124,7 @@ app.all('/*', function(req, res, next) {
  */
 let server = http.createServer(app);
 
-server.listen(app.get('port'), app.get('ipaddress'), function() {
+server.listen(app.get('port'), app.get('ipaddress'), function () {
   logger.info('Server running and listening on port ' + app.get('port'));
 });
 

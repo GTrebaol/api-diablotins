@@ -3,7 +3,7 @@
  *
  * @param UserModel
  */
-UserService = function(UserModel) {
+UserService = function (UserModel) {
   let userService = {};
 
   /**
@@ -11,7 +11,7 @@ UserService = function(UserModel) {
    * @param user
    * @returns {*}
    */
-  userService.add = function(user) {
+  userService.add = function (user) {
     console.log(user);
     return new UserModel({
       name: user.name,
@@ -26,18 +26,18 @@ UserService = function(UserModel) {
    * @param user
    * @returns {*}
    */
-  userService.update = function(id, user) {
+  userService.update = function (id, user) {
     if (user.password) {
-      return new UserModel({user_id: parseInt(id)}).save({
+      return new UserModel({ user_id: parseInt(id) }).save({
         name: user.name,
         password: user.password,
         is_admin: user.is_admin
-      }, {patch: true});
+      }, { patch: true });
     }
-    return new UserModel({user_id: parseInt(id)}).save({
+    return new UserModel({ user_id: parseInt(id) }).save({
       name: user.name,
       is_admin: user.is_admin
-    }, {patch: true});
+    }, { patch: true });
   };
 
   /**
@@ -46,10 +46,10 @@ UserService = function(UserModel) {
    * @param user
    * @returns {*}
    */
-  userService.updateSelf = function(id, user) {
-    return new UserModel({user_id: parseInt(id)}).save({
+  userService.updateSelf = function (id, user) {
+    return new UserModel({ user_id: parseInt(id) }).save({
       password: user.encpassword
-    }, {patch: true});
+    }, { patch: true });
   };
 
   /**
@@ -57,8 +57,8 @@ UserService = function(UserModel) {
    * @param id
    * @returns {*}
    */
-  userService.delete = function(id) {
-    return new UserModel({user_id: parseInt(id)}).destroy();
+  userService.delete = function (id) {
+    return new UserModel({ user_id: parseInt(id) }).destroy();
   };
 
   /**
@@ -66,8 +66,8 @@ UserService = function(UserModel) {
    * @param id
    * @returns {*}
    */
-  userService.findById = function(id) {
-    return new UserModel({user_id: parseInt(id)}).fetch({columns: ['id', 'name', 'is_admin']});
+  userService.findById = function (id) {
+    return new UserModel({ user_id: parseInt(id) }).fetch({ columns: ['id', 'name', 'is_admin'] });
   };
 
   /**
@@ -75,16 +75,16 @@ UserService = function(UserModel) {
    * @returns {*}
    * @param name
    */
-  userService.findByName = function(name) {
-    return new UserModel({name: name}).fetch();
+  userService.findByName = function (name) {
+    return new UserModel({ name: name }).fetch();
   };
 
   /**
    *
    * @returns {*|A}
    */
-  userService.findAll = function() {
-    return new UserModel().fetchAll({columns: ['name']});
+  userService.findAll = function () {
+    return new UserModel().fetchAll({ columns: ['name'] });
   };
 
   return userService;

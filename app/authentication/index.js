@@ -1,4 +1,4 @@
-module.exports = function(req, res, next) {
+module.exports = function (req, res, next) {
   let i18n = require('i18n');
   let jwt = app.get('jwt');
   //Check header or url parameters or post parameters for token
@@ -6,12 +6,12 @@ module.exports = function(req, res, next) {
   //Decode token
   if (token) {
     //Verify secret and check the expiration datetime
-    jwt.verify(token, app.get('secret'), function(err, decoded) {
+    jwt.verify(token, app.get('secret'), function (err, decoded) {
       if (err) {
         if (err.name === 'TokenExpiredError') {
-          return res.status(403).json({code: 403, message: i18n.__('token.expired')});
+          return res.status(403).json({ code: 403, message: i18n.__('token.expired') });
         }
-        return res.status(403).json({code: 403, message: i18n.__('token.failed')});
+        return res.status(403).json({ code: 403, message: i18n.__('token.failed') });
       } else {
         //Save to request for use in other routes
         req.decoded = decoded;
@@ -19,6 +19,6 @@ module.exports = function(req, res, next) {
       }
     });
   } else {
-    return res.status(403).send({code: 403, message: i18n.__('token.empty')});
+    return res.status(403).send({ code: 403, message: i18n.__('token.empty') });
   }
 };

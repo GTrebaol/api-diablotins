@@ -11,7 +11,7 @@ UtilityService = function (app) {
     var fs = require('fs');
     var logger = app.get('logger');
 
-    
+
     /**
      * Get the table records limit or return the default limit
      * 
@@ -28,7 +28,7 @@ UtilityService = function (app) {
         }
         return limit;
     };
-    
+
     /**
      * Get the table records offset or return the default offset
      * 
@@ -45,7 +45,7 @@ UtilityService = function (app) {
         }
         return offset;
     };
-    
+
     /**
      * Get the table records order_by or return default order_by
      * 
@@ -55,13 +55,13 @@ UtilityService = function (app) {
     utils.getOrderBy = function (params) {
         var orderBy = [];
         if (!params.order_by) {
-            orderBy = [ 'name', 'asc' ];
+            orderBy = ['name', 'asc'];
         } else if (!Array.isArray(params.order_by)) {
-            orderBy = [ params.order_by.toString(), 'asc' ];
+            orderBy = [params.order_by.toString(), 'asc'];
         } else if (params.order_by.length != 2) {
-            orderBy = [ 'name', 'asc' ];
+            orderBy = ['name', 'asc'];
         } else {
-            if (!/^([a-zA-Z_]+)$/.test(params.order_by[0])) { 
+            if (!/^([a-zA-Z_]+)$/.test(params.order_by[0])) {
                 orderBy.push('name');
             } else {
                 orderBy.push(params.order_by[0]);
@@ -74,7 +74,7 @@ UtilityService = function (app) {
         }
         return orderBy;
     };
-    
+
     /**
      * Get the raw table ordering statement
      * 
@@ -98,7 +98,7 @@ UtilityService = function (app) {
         }
         return orderBy;
     };
-    
+
     /**
      * Get a table's primary id
      * 

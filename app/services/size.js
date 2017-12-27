@@ -3,7 +3,7 @@
  *
  * @param Size
  */
-SizeService = function(SizeModel) {
+SizeService = function (SizeModel) {
 
   let sizeService = {};
 
@@ -12,7 +12,7 @@ SizeService = function(SizeModel) {
    * @param size
    * @returns {*}
    */
-  sizeService.add = function(size) {
+  sizeService.add = function (size) {
     return new SizeModel({
       value: size.value
     }).save();
@@ -24,10 +24,10 @@ SizeService = function(SizeModel) {
    * @param size
    * @returns {*}
    */
-  sizeService.update = function(id, size) {
-    return new SizeModel({size_id: parseInt(id)}).save({
+  sizeService.update = function (id, size) {
+    return new SizeModel({ size_id: parseInt(id) }).save({
       value: size.value
-    }, {patch: true});
+    }, { patch: true });
   };
 
   /**
@@ -35,15 +35,15 @@ SizeService = function(SizeModel) {
    * @param id
    * @returns {*}
    */
-  sizeService.delete = function(id) {
-    return new SizeModel({size_id: parseInt(id)}).destroy();
+  sizeService.delete = function (id) {
+    return new SizeModel({ size_id: parseInt(id) }).destroy();
   };
 
   /**
    * Fetch all the sizes
    * @returns A collection of sizes
    */
-  sizeService.fetchAll = function() {
+  sizeService.fetchAll = function () {
     return new SizeModel().fetchAll();
   };
 
@@ -53,8 +53,8 @@ SizeService = function(SizeModel) {
    * @param id
    * @returns size model
    */
-  sizeService.findById = function(id) {
-    return new SizeModel({size_id: parseInt(id)}).fetch();
+  sizeService.findById = function (id) {
+    return new SizeModel({ size_id: parseInt(id) }).fetch();
   };
 
 
@@ -62,7 +62,7 @@ SizeService = function(SizeModel) {
    * Fetch the amount of sizes
    * @returns {*}
    */
-  sizeService.getAmount = function() {
+  sizeService.getAmount = function () {
     return new SizeModel().count();
   };
 

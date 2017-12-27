@@ -2,18 +2,18 @@
  * Supraball services module fetch information from database
  *
  */
-let Services = function() {
+let Services = function () {
   return Services.initialize.apply(null, arguments);
 };
 
 // Constructor for a new `Services` object, it accepts
 // an active SqlConnection and initializes the appropriate
 // services for the many supraball models.
-Services.initialize = function(configuration) {
+Services.initialize = function (configuration) {
   let services = {
-      VERSION: '0.0.1'
-    },
-    knex = require('knex')({client: 'mysql', connection: configuration.db, debug: false});
+    VERSION: '0.0.1'
+  },
+    knex = require('knex')({ client: 'mysql', connection: configuration.db, debug: false });
 
   const securePassword = require('bookshelf-secure-password');
   services.knex = knex;

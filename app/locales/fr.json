@@ -1,8 +1,8 @@
 {
-  "token.expired" : "Votre jeton a expiré, veuillez vous reconnecter.",
-  "token.failed" : "Jeton invalide.",
-  "token.empty" : "Aucun jeton recu.",
-  "user.undefined" : "Cet utilisateur n'existe pas.",
-  "password.wrong" : "Oops, mauvais mot de passe, veuillez réessayer.",
-  "server.error" : "Une erreur interne s'est produite durant votre rêquete. Réessayez ultérieurement."
+  "token.expired": "Votre jeton a expiré, veuillez vous reconnecter.",
+  "token.failed": "Jeton invalide.",
+  "token.empty": "Aucun jeton recu.",
+  "user.undefined": "Cet utilisateur n'existe pas.",
+  "password.wrong": "Oops, mauvais mot de passe, veuillez réessayer.",
+  "server.error": "Une erreur interne s'est produite durant votre rêquete. Réessayez ultérieurement."
 }
