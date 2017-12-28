@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`brand` (
   `name` VARCHAR(120) NULL DEFAULT NULL,
   PRIMARY KEY (`brand_id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC))
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 5
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -40,9 +40,9 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`category` (
   `name` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`category_id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC))
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 6
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -55,9 +55,9 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`color` (
   `value` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`color_id`),
   UNIQUE INDEX `name_UNIQUE` (`value` ASC))
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 7
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`description` (
   `full_description` TEXT NOT NULL,
   `short_description` VARCHAR(120) NOT NULL,
   PRIMARY KEY (`description_id`))
-  ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -90,18 +90,18 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`shoe` (
   INDEX `fk_shoe_brand_idx` (`brand_id` ASC),
   INDEX `fk_shoe_description1_idx` (`description_id` ASC),
   CONSTRAINT `fk_shoe_brand`
-  FOREIGN KEY (`brand_id`)
-  REFERENCES `diablotins`.`brand` (`brand_id`)
+    FOREIGN KEY (`brand_id`)
+    REFERENCES `diablotins`.`brand` (`brand_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_shoe_description1`
-  FOREIGN KEY (`description_id`)
-  REFERENCES `diablotins`.`description` (`description_id`)
+    FOREIGN KEY (`description_id`)
+    REFERENCES `diablotins`.`description` (`description_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 2
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -115,17 +115,17 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`shoe_categories` (
   INDEX `fk_shoe_categories_category_idx` (`category_id` ASC),
   INDEX `fk_shoe_categories_shoe_idx` (`shoe_id` ASC),
   CONSTRAINT `fk_shoe_categories_category`
-  FOREIGN KEY (`category_id`)
-  REFERENCES `diablotins`.`category` (`category_id`)
+    FOREIGN KEY (`category_id`)
+    REFERENCES `diablotins`.`category` (`category_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_shoe_categories_shoe`
-  FOREIGN KEY (`shoe_id`)
-  REFERENCES `diablotins`.`shoe` (`shoe_id`)
+    FOREIGN KEY (`shoe_id`)
+    REFERENCES `diablotins`.`shoe` (`shoe_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-  ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -139,17 +139,17 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`shoe_colors` (
   INDEX `fk_shoe_colors_shoe_idx` (`shoe_id` ASC),
   INDEX `fk_shoe_colors_color_idx` (`color_id` ASC),
   CONSTRAINT `fk_shoe_colors_color`
-  FOREIGN KEY (`color_id`)
-  REFERENCES `diablotins`.`color` (`color_id`)
+    FOREIGN KEY (`color_id`)
+    REFERENCES `diablotins`.`color` (`color_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_shoe_colors_shoe1`
-  FOREIGN KEY (`shoe_id`)
-  REFERENCES `diablotins`.`shoe` (`shoe_id`)
+    FOREIGN KEY (`shoe_id`)
+    REFERENCES `diablotins`.`shoe` (`shoe_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-  ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -162,9 +162,9 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`size` (
   `value` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`size_id`),
   UNIQUE INDEX `value_UNIQUE` (`value` ASC))
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 9
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -178,17 +178,17 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`shoe_sizes` (
   INDEX `fk_shoe_sizes_size_idx` (`size_id` ASC),
   INDEX `fk_shoe_sizes_shoe_idx` (`shoe_id` ASC),
   CONSTRAINT `fk_shoe_sizes_shoe`
-  FOREIGN KEY (`shoe_id`)
-  REFERENCES `diablotins`.`shoe` (`shoe_id`)
+    FOREIGN KEY (`shoe_id`)
+    REFERENCES `diablotins`.`shoe` (`shoe_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_shoe_sizes_size`
-  FOREIGN KEY (`size_id`)
-  REFERENCES `diablotins`.`size` (`size_id`)
+    FOREIGN KEY (`size_id`)
+    REFERENCES `diablotins`.`size` (`size_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-  ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -203,9 +203,9 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`user` (
   `is_admin` TINYINT(1) NULL DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC))
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 7
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -219,16 +219,23 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`image` (
   `url` VARCHAR(120) NOT NULL,
   `created_at` TIMESTAMP NULL DEFAULT current_timestamp,
   `updated_at` TIMESTAMP NULL DEFAULT current_timestamp,
-  `shoe_id` INT(11) NOT NULL,
   `is_primary` TINYINT NOT NULL DEFAULT 0,
+  `shoe_id` INT(11) NOT NULL,
+  `color_id` INT(11) NOT NULL,
   PRIMARY KEY (`image_id`),
-  INDEX `fk_picture_shoe1_idx` (`shoe_id` ASC),
-  CONSTRAINT `fk_picture_shoe1`
-  FOREIGN KEY (`shoe_id`)
-  REFERENCES `diablotins`.`shoe` (`shoe_id`)
+  INDEX `fk_image_shoe1_idx` (`shoe_id` ASC),
+  INDEX `fk_image_color1_idx` (`color_id` ASC),
+  CONSTRAINT `fk_image_shoe1`
+    FOREIGN KEY (`shoe_id`)
+    REFERENCES `diablotins`.`shoe` (`shoe_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_image_color1`
+    FOREIGN KEY (`color_id`)
+    REFERENCES `diablotins`.`color` (`color_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-  ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -243,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`collection` (
   `to` DATETIME NOT NULL,
   PRIMARY KEY (`collection_id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC))
-  ENGINE = InnoDB;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -258,17 +265,17 @@ CREATE TABLE IF NOT EXISTS `diablotins`.`shoe_collection` (
   INDEX `fk_shoe_has_collection_collection1_idx` (`collection_id` ASC),
   INDEX `fk_shoe_has_collection_shoe1_idx` (`shoe_id` ASC),
   CONSTRAINT `fk_shoe_has_collection_shoe1`
-  FOREIGN KEY (`shoe_id`)
-  REFERENCES `diablotins`.`shoe` (`shoe_id`)
+    FOREIGN KEY (`shoe_id`)
+    REFERENCES `diablotins`.`shoe` (`shoe_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_shoe_has_collection_collection1`
-  FOREIGN KEY (`collection_id`)
-  REFERENCES `diablotins`.`collection` (`collection_id`)
+    FOREIGN KEY (`collection_id`)
+    REFERENCES `diablotins`.`collection` (`collection_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-  ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

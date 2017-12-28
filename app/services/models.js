@@ -32,7 +32,13 @@ module.exports = function (secret, bookshelf) {
 
   let Image = bookshelf.Model.extend({
     tableName: 'image',
-    idAttribute: 'image_id'
+    idAttribute: 'image_id',
+    color: function(){
+      return this.belongsTo(Color, 'color_id');
+    },
+    shoe: function(){
+      return this.belongsTo(Shoe, 'shoe_id');
+    }
   });
 
 

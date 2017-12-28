@@ -16,7 +16,7 @@ module.exports.load = function (app) {
         logger.info("Routes - Category::findCategoryByName");
         services.category.findCategoryLogoById(req.params.id).then(function (data) {
             if (data && data.attributes.logo) {
-                data = data.toJSON()s;
+                data = data.toJSON();
                 res.set('Content-Type', 'image/png');
                 return res.send(data.logo);
             }
