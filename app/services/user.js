@@ -12,7 +12,6 @@ UserService = function (UserModel) {
    * @returns {*}
    */
   userService.add = function (user) {
-    console.log(user);
     return new UserModel({
       name: user.name,
       password: user.password,

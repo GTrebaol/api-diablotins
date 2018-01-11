@@ -112,7 +112,7 @@ ShoeService = function (ShoeModel) {
    */
   shoeService.findByName = function (searchTerm) {
     return new ShoeModel().query(function (qb) {
-      qb.where('name', 'like', '"%' + searchTerm + '%"');
+      qb.where('name', 'like', '%' + searchTerm + '%');
     }).fetchAll({
       withRelated: ['brand', 'sizes', 'colors', 'categories']
     });
