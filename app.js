@@ -95,11 +95,14 @@ app.use(function (req, res, next) {
   }
 });
 
+var router = express.Router();
+app.use('/api', router);
+
 //Initialize routes
 routeFiles.forEach(function (file) {
   let filePath = path.resolve(__dirname, routeDir, file), route = require(filePath);
   logger.info('Loading routes for ' + file);
-  route.load(app);
+  route.load(router);
 });
 
 //Add handlers for errors and exceptions thrown by the middleware
