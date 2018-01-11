@@ -40,7 +40,7 @@
     "body-parser": "^1.12.2",
     "bookshelf": "^0.9.1",
     "bookshelf-secure-password": "^3.0.1",
-    "express": "^4.12.3",
+    "express": "^4.16.2",
     "http": "0.0.0",
     "i18n": "^0.5.0",
     "jsonwebtoken": "5.0.2",
