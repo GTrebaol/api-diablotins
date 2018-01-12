@@ -68,6 +68,12 @@ ShoeService = function(ShoeModel) {
     });
   };
 
+  shoeService.findByIdWithSpecifiedRelation = function(id, relation) {
+    return new ShoeModel({shoe_id: parseInt(id)}).fetch({
+      withRelated: [relation]
+    });
+  };
+
   /**
    * find list of shoes by its category id
    *

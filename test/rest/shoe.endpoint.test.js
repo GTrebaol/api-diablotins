@@ -5,15 +5,15 @@
  * @returns {Function}
  * @constructor
  */
-LeagueEndPointTest = function(hippie, chai) {
+ShoeEndPointTest = function(hippie, chai) {
 
-  var expect = chai.expect;
+  let expect = chai.expect;
 
   return function() {
     it('should return code 200 with json containing an object', function(done) {
       hippie(app)
         .json()
-        .get("/api/leagues/1")
+        .get("/api/shoes/1")
         .expectStatus(200)
         .expectHeader('Content-Type', 'application/json; charset=utf-8')
         .end(function(err, res, body) {
@@ -25,7 +25,7 @@ LeagueEndPointTest = function(hippie, chai) {
     it('should return code 200 with json containing an array', function(done) {
       hippie(app)
         .json()
-        .get("/api/leagues")
+        .get("/api/shoes")
         .expectStatus(200)
         .expectHeader('Content-Type', 'application/json; charset=utf-8')
         .end(function(err, res, body) {
@@ -37,19 +37,7 @@ LeagueEndPointTest = function(hippie, chai) {
     it('should return code 200 with json containing an array', function(done) {
       hippie(app)
         .json()
-        .get("/api/leagues/1/teams")
-        .expectStatus(200)
-        .expectHeader('Content-Type', 'application/json; charset=utf-8')
-        .end(function(err, res, body) {
-          expect(body).to.be.an('array');
-          done();
-        });
-    });
-
-    it('should return code 200 with json containing an array', function(done) {
-      hippie(app)
-        .json()
-        .get("/api/leagues/1/players")
+        .get("/api/shoes/1/categories")
         .expectStatus(200)
         .expectHeader('Content-Type', 'application/json; charset=utf-8')
         .end(function(err, res, body) {
@@ -72,4 +60,4 @@ LeagueEndPointTest = function(hippie, chai) {
   };
 };
 
-module.exports = LeagueEndPointTest;
+module.exports = ShoeEndPointTest;

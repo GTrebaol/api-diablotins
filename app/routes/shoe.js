@@ -19,6 +19,22 @@ module.exports.load = function(router) {
     });
 
   /**
+   * Get all the categories of the shoe {id}
+   */
+  router.route('/shoes/:id/:relationship')
+    .get(function(req, res) {
+      logger.info("Routes - shoe::findCategoriesFromShoeId");
+      let relationship = req.params.relationship;
+      let shoeId = req.params.id;
+      services.shoe.findByIdWithSpecifiedRelation(shoeId, relationship).then(function(data) {
+        return res.json(data.relations[relationship]);
+      }).catch(function(error) {
+        logger.error(error);
+        return res.status(500).json({code: 500, message: 'An internal error occurred while processing your request'});
+      });
+    });
+
+  /**
    * Get all the shoes of the category {id}
    */
   router.route('/shoes/category/:id')

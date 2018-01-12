@@ -1,7 +1,7 @@
-var ServiceTests = function () {
+let ServiceTests = function() {
 
     return function () {
-        var knex = require('knex'),
+      let knex = require('knex'),
                 dbMock = require('mock-knex'),
                 chai = require('chai'),
                 expect = chai.expect,
@@ -36,20 +36,20 @@ var ServiceTests = function () {
             });
 
             describe('Player tests', function () {
-                it('Should returns a player', function (done) {
-                    var playerId = 1;
+              it('Should returns a shoe', function(done) {
+                let shoeId = 1;
                     tracker.on('query', function sendResult(query) {
-                        query.response({'id': playerId});
+                      query.response({'id': shoeId});
                     });
-                    services.player.findById(playerId).then(function (model) {
-                        expect(model).to.be.an.instanceOf(services.models.player);
-                        expect(model.get('id')).to.be.equals(playerId);
+                services.shoe.findById(shoeId).then(function(model) {
+                  expect(model).to.be.an.instanceOf(services.models.shoe);
+                  expect(model.get('shoe_id')).to.be.equals(shoeId);
                         done();
                     });
                 });
 
-                it('Should returns a team', function (done) {
-                    var playerId = 1,
+                /*it('Should returns multiple categories', function (done) {
+                 let playerId = 1,
                             teamId = 2;
                     tracker.on('query', function sendResult(query, step) {
                         if (step > 1) { // response with a team
@@ -62,12 +62,12 @@ var ServiceTests = function () {
                         expect(model.relations.team).to.be.an.instanceOf(services.models.team);
                         done();
                     });
-                });
+                 });*/
             });
 
             describe('Team tests', function () {
-                it('Should returns a player', function (done) {
-                    var playerId = 1;
+                /*                it('Should returns a player', function (done) {
+                 let playerId = 1;
                     tracker.on('query', function sendResult(query) {
                         query.response({'id': playerId});
                     });
@@ -79,7 +79,7 @@ var ServiceTests = function () {
                 });
 
                 it('Should returns a team', function (done) {
-                    var playerId = 1,
+                 let playerId = 1,
                             teamId = 2;
                     tracker.on('query', function sendResult(query, step) {
                         if (step > 1) { // response with a team
@@ -92,7 +92,7 @@ var ServiceTests = function () {
                         expect(model.relations.team).to.be.an.instanceOf(services.models.team);
                         done();
                     });
-                });
+                 });*/
             });
 
         });
