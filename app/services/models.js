@@ -6,7 +6,7 @@
  * @param bookshelf
  * @returns {{}}
  */
-module.exports = function (secret, bookshelf) {
+module.exports = function(secret, bookshelf) {
 
   let models = {};
 
@@ -33,10 +33,10 @@ module.exports = function (secret, bookshelf) {
   let Image = bookshelf.Model.extend({
     tableName: 'image',
     idAttribute: 'image_id',
-    color: function(){
+    color: function() {
       return this.belongsTo(Color, 'color_id');
     },
-    shoe: function(){
+    shoe: function() {
       return this.belongsTo(Shoe, 'shoe_id');
     }
   });
@@ -45,25 +45,25 @@ module.exports = function (secret, bookshelf) {
   let Shoe = bookshelf.Model.extend({
     tableName: 'shoe',
     idAttribute: 'shoe_id',
-    sizes: function () {
+    sizes: function() {
       return this.belongsToMany(Size, 'shoe_sizes', 'shoe_id', 'size_id');
     },
-    categories: function () {
+    categories: function() {
       return this.belongsToMany(Category, 'shoe_categories', 'shoe_id', 'category_id');
     },
-    colors: function () {
+    colors: function() {
       return this.belongsToMany(Color, 'shoe_colors', 'shoe_id', 'color_id');
     },
-    brand: function () {
+    brand: function() {
       return this.belongsTo(Brand, 'brand_id')
     },
-    collections: function () {
+    collections: function() {
       return this.belongsToMany(Collection, 'shoe_collection', 'shoe_id', 'collection_id')
     },
-    description: function () {
+    description: function() {
       return this.belongsTo(Description, 'description_id');
     },
-    pictures: function () {
+    pictures: function() {
       return this.hasMany(Image, 'shoe_id')
     }
   });
@@ -71,7 +71,7 @@ module.exports = function (secret, bookshelf) {
   let Brand = bookshelf.Model.extend({
     tableName: 'brand',
     idAttribute: 'brand_id',
-    shoes: function () {
+    shoes: function() {
       return this.hasMany(Shoe);
     },
   });
@@ -80,7 +80,7 @@ module.exports = function (secret, bookshelf) {
     tableName: 'user',
     idAttribute: 'user_id',
     hasSecurePassword: true,
-    parse: function (attrs) {
+    parse: function(attrs) {
       attrs['is_admin'] = !!attrs['is_admin']
       return attrs;
     }

@@ -2,7 +2,6 @@
  * shoe services
  *
  * @param ShoeModel
- * @param CategoryModel
  */
 ShoeService = function(ShoeModel) {
 
