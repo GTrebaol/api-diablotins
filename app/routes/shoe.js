@@ -93,7 +93,8 @@ module.exports.load = function(router) {
   router.route('/shoes')
     .get(function(req, res) {
       logger.info("Routes - shoe::fetchAll");
-      services.shoe.fetchAll().then(function(data) {
+      let pageNumber = req.get('pageNumber') ? req.get('pageNumber') : 1;
+      services.shoe.fetchAll(pageNumber).then(function(data) {
         return res.json(data);
       }).catch(function(error) {
         logger.error(error);
