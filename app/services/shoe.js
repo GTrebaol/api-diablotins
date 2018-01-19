@@ -51,7 +51,7 @@ ShoeService = function(ShoeModel) {
   shoeService.fetchAll = function(pageNumber) {
     return new ShoeModel().query(function(qb) {
       qb.limit(pagingLimit).offset((pageNumber - 1) * pagingLimit)
-    }).fetchAll();
+    }).fetchAll({withRelated: ['brand']});
   };
 
 
