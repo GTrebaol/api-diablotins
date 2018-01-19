@@ -49,10 +49,9 @@ ShoeService = function(ShoeModel) {
    * @returns A collection of shoes
    */
   shoeService.fetchAll = function(pageNumber) {
-    return new ShoeModel().fetchAll({
-      limit: pagingLimit,
-      offset: (pageNumber - 1) * pagingLimit
-    });
+    return new ShoeModel().query(function(qb) {
+      qb.limit(pagingLimit).offset((pageNumber - 1) * pagingLimit)
+    }).fetchAll();
   };
 
 
@@ -104,6 +103,10 @@ ShoeService = function(ShoeModel) {
     });
   };
 
+  shoeService.getPagingLimit = function() {
+    return pagingLimit
+  };
+
 
   /**
    * Fetch the amount of shoes
@@ -129,6 +132,7 @@ ShoeService = function(ShoeModel) {
 
 
   return shoeService;
-};
+}
+;
 
 module.exports = ShoeService;

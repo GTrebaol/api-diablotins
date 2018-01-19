@@ -109,13 +109,19 @@ module.exports.load = function(router) {
   router.route('/shoes')
     .get(function(req, res) {
       logger.info("Routes - shoe::fetchAll");
-      let pageNumber = req.get('pageNumber') ? req.get('pageNumber') : 1;
+      let pageNumber = req.query.pageNumber ? req.query.pageNumber : 1;
+      let response = {};
       services.shoe.fetchAll(pageNumber).then(function(data) {
-        return res.json(data);
+        response.shoes = data;
+        services.shoe.getAmount().then(function(amount) {
+          response.shoesQuantity = amount;
+          response.pageAsked = pageNumber;
+          response.pageSize = services.shoe.getPagingLimit();
+          return res.json(response);
+        });
       }).catch(function(error) {
         logger.error(error);
         return res.status(500).json({code: 500, message: 'An internal error occurred while processing your request'});
       });
     });
-
 };
