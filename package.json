@@ -41,6 +41,7 @@
     "bookshelf": "^0.9.1",
     "bookshelf-secure-password": "^3.0.1",
     "express": "^4.16.2",
+    "grunt-mocha-chai-sinon": "0.0.9",
     "http": "0.0.0",
     "i18n": "^0.5.0",
     "jsonwebtoken": "5.0.2",

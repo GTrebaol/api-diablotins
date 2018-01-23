@@ -214,14 +214,14 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `diablotins`.`image` ;
 
 CREATE TABLE IF NOT EXISTS `diablotins`.`image` (
-  `image_id` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `url` VARCHAR(120) NOT NULL,
-  `created_at` TIMESTAMP NULL DEFAULT current_timestamp,
-  `updated_at` TIMESTAMP NULL DEFAULT current_timestamp,
-  `is_primary` TINYINT NOT NULL DEFAULT 0,
-  `shoe_id` INT(11) NOT NULL,
-  `color_id` INT(11) NOT NULL,
+  `image_id`   INT          NOT NULL,
+  `name`       VARCHAR(45)  NOT NULL,
+  `url`        VARCHAR(256) NOT NULL,
+  `created_at` TIMESTAMP    NULL DEFAULT current_timestamp,
+  `updated_at` TIMESTAMP    NULL DEFAULT current_timestamp,
+  `is_primary` TINYINT      NOT NULL DEFAULT 0,
+  `shoe_id`    INT(11)      NOT NULL,
+  `color_id`   INT(11)      NOT NULL,
   PRIMARY KEY (`image_id`),
   INDEX `fk_image_shoe1_idx` (`shoe_id` ASC),
   INDEX `fk_image_color1_idx` (`color_id` ASC),

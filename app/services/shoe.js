@@ -41,7 +41,31 @@ ShoeService = function(ShoeModel) {
    * @returns {*}
    */
   shoeService.delete = function(id) {
-    return new ShoeModel({shoe_id: parseInt(id)}).destroy();
+    return this.findById(id).then(function(shoe) {
+      if (shoe) {
+        let sizes = shoe.related('sizes');
+        let categories = shoe.related('categories');
+        let colors = shoe.related('colors');
+        let collections = shoe.related('collections');
+
+        let brand = shoe.related('brand');
+        let description = shoe.related('description');
+        let pictures = shoe.related('pictures');
+
+        return Promise.all([sizes.detach(),
+          sizes.detach(),
+          categories.detach(),
+          colors.detach(),
+          collections.detach(),
+          pictures.invokeThen('detach'),
+          pictures.invokeThen('destroy'),
+          shoe.destroy(),
+          description.destroy()
+        ]);
+      } else {
+        return null;
+      }
+    })
   };
 
   /**

@@ -2,9 +2,10 @@ module.exports = function(req, res, next) {
   let i18n = require('i18n');
   let jwt = app.get('jwt');
   //Check header or url parameters or post parameters for token
-  let token = req.body.token || req.query.token || req.headers['x-access-token'];
+  let token = req.body.token || req.query.token || req.headers['authorization'];
   //Decode token
   if (token) {
+    token = token.replace('Bearer: ', '');
     //Verify secret and check the expiration datetime
     jwt.verify(token, app.get('secret'), function(err, decoded) {
       if (err) {

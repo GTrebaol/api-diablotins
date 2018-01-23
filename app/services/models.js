@@ -54,11 +54,11 @@ module.exports = function(secret, bookshelf) {
     colors: function() {
       return this.belongsToMany(Color, 'shoe_colors', 'shoe_id', 'color_id');
     },
-    brand: function() {
-      return this.belongsTo(Brand, 'brand_id')
-    },
     collections: function() {
       return this.belongsToMany(Collection, 'shoe_collection', 'shoe_id', 'collection_id')
+    },
+    brand: function() {
+      return this.belongsTo(Brand, 'brand_id')
     },
     description: function() {
       return this.belongsTo(Description, 'description_id');
