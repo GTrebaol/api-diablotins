@@ -27,6 +27,10 @@ Services.initialize = function(configuration) {
   services.size = require('./size.js')(services.models.size);
   services.category = require('./category.js')(services.models.category);
   services.shoe = require('./shoe.js')(services.models.shoe);
+  services.collection = require('./collection.js')(services.models.collection);
+  services.description = require('./description.js')(services.models.description);
+  services.image = require('./image.js')(services.models.image);
+  services.brand = require('./brand.js')(services.models.brand);
   services.user = require('./user.js')(services.models.user);
 
   return services;

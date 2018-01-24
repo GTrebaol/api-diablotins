@@ -121,7 +121,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `shoe_sizes` WRITE;
 /*!40000 ALTER TABLE `shoe_sizes` DISABLE KEYS */;
-INSERT INTO `shoe_sizes` VALUES (2,1),(3,1),(4,1),(5,1),(6,1);
+INSERT INTO `shoe_sizes` VALUES (12,1),(13,1),(14,1),(15,1),(16,1);
 /*!40000 ALTER TABLE `shoe_sizes` ENABLE KEYS */;
 UNLOCK TABLES;
 

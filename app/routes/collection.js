@@ -1,14 +1,12 @@
 module.exports.load = function(router) {
   let services = app.get('services');
   let logger = app.get('logger');
-  let async = app.get('async');
   let requiresAuth = app.get('auth');
 
-
-  router.route('/sizes/:id')
+  router.route('/collections/:id')
     .get(function(req, res) {
-      logger.info("Routes - Size::findSizeById");
-      services.size.findById(req.params.id).then(function(data) {
+      logger.info("Routes - Collection::findCollectionById");
+      services.collection.findById(req.params.id).then(function(data) {
         return res.json(data);
       }).catch(function(error) {
         logger.error(error);
@@ -16,9 +14,9 @@ module.exports.load = function(router) {
       });
     })
     .delete(requiresAuth, function(req, res) {
-      logger.info("Routes - Size::deleteSize");
+      logger.info("Routes - Collection::deleteCollection");
       if (req.decoded.is_admin) {
-        services.size.delete(req.params.id).then(function(data) {
+        services.collection.delete(req.params.id).then(function(data) {
           return res.json(data);
         }).catch(function(error) {
           logger.error(error);
@@ -29,9 +27,9 @@ module.exports.load = function(router) {
       }
     })
     .put(requiresAuth, function(req, res) {
-      logger.info("Routes - Size::updateSize");
+      logger.info("Routes - Collection::updateCollection");
       if (req.decoded.is_admin) {
-        services.size.delete(req.params.id).then(function(data) {
+        services.collection.delete(req.params.id).then(function(data) {
           return res.json(data);
         }).catch(function(error) {
           logger.error(error);
@@ -42,10 +40,10 @@ module.exports.load = function(router) {
       }
     });
 
-  router.route('/sizes')
+  router.route('/collections')
     .get(function(req, res) {
-      logger.info("Routes - Size::fetchAll");
-      services.size.fetchAll().then(function(data) {
+      logger.info("Routes - Collection::fetchAll");
+      services.collection.fetchAll().then(function(data) {
         return res.json(data);
       }).catch(function(error) {
         logger.error(error);

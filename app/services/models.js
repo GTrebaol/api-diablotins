@@ -96,9 +96,11 @@ module.exports = function(secret, bookshelf) {
   models.category = Category;
   models.color = Color;
   models.user = User;
-  models.brand = Brand;
   models.collection = Collection;
-
+  models.brand = Brand;
+  models.image = Image;
+  models.description = Description;
+  
   return models;
 
 };

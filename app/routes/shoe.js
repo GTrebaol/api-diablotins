@@ -108,6 +108,42 @@ module.exports.load = function(router) {
         logger.error(error);
         return res.status(500).json({code: 500, message: 'An internal error occurred while processing your request'});
       });
+    })
+    .post(requiresAuth, function(req, res) {
+      logger.info("Routes - Shoe::createShoe");
+      if (req.decoded.is_admin) {
+        let shoe = req.body.shoe;
+        let collections = req.body.collections;
+        let categories = req.body.categories;
+        //let sizes = req.body.sizes;
+        //let pictures = req.body.pictures;
+        //let colors = req.body.colors;
+
+        services.description.add(shoe.description).then(function(newDescription) {
+          shoe.description = newDescription.id;
+          services.shoe.add(shoe).then(function(newShoe) {
+            Promise.all([
+              //services.image.add(pictures),
+              services.shoe.attachCollections(collections, newShoe),
+              services.shoe.attachCategories(categories, newShoe),
+              //services.shoe.attachColors(colors, newShoe),
+              //services.shoe.attachSizes(sizes, newShoe)
+            ]).then(function() {
+              return res.status(200).json({message: 'Successfully updated shoe'});
+            }).catch(function(error) {
+              logger.error(error);
+            });
+          }).catch(function(error) {
+            logger.error(error);
+            return res.status(500).json({message: error.message});
+          });
+        }).catch(function(error) {
+          logger.error(error);
+          return res.status(500).json({message: error.message});
+        });
+      } else {
+        return res.status(401).json({message: 'Insufficient permissions!'});
+      }
     });
 
   /**

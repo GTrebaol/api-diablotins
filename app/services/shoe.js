@@ -14,10 +14,13 @@ ShoeService = function(ShoeModel) {
    * @returns {*}
    */
   shoeService.add = function(shoe) {
+    console.log(shoe);
     return new ShoeModel({
       name: shoe.name,
-      size_id: shoe.size_id,
-      color_id: shoe.color_id
+      price: shoe.price,
+      reference: shoe.reference,
+      brand_id: shoe.brand,
+      description_id: shoe.description
     }).save();
   };
 
@@ -29,9 +32,7 @@ ShoeService = function(ShoeModel) {
    */
   shoeService.update = function(id, shoe) {
     return new ShoeModel({shoe_id: parseInt(id)}).save({
-      name: shoe.name,
-      size_id: shoe.size_id,
-      color_id: shoe.color_id
+      name: shoe.name
     }, {patch: true});
   };
 
@@ -153,6 +154,27 @@ ShoeService = function(ShoeModel) {
       withRelated: ['brand', 'sizes', 'colors', 'categories']
     });
   };
+
+  shoeService.attachCollections = function(collections, shoe) {
+    console.log("coucou collections");
+    console.log(collections);
+    return shoe.collections().attach(collections);
+  };
+
+  shoeService.attachCategories = function(categories, shoe) {
+    console.log("coucou categories");
+    console.log(categories);
+    return shoe.categories().attach(categories);
+  };
+
+  shoeService.attachSizes = function(sizes, shoe) {
+    return shoe.sizes().attach(sizes);
+  };
+
+  shoeService.attachColors = function(colors, shoe) {
+    return shoe.colors().attach(colors);
+  };
+
 
 
   return shoeService;
