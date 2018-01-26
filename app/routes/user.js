@@ -23,7 +23,6 @@ module.exports.load = function(router) {
               logger.error(error);
               return res.status(500).json({message: error.message});
             });
-
           }
         });
       } else {

@@ -66,9 +66,8 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `diablotins`.`description` ;
 
 CREATE TABLE IF NOT EXISTS `diablotins`.`description` (
-  `description_id`    INT          NOT NULL AUTO_INCREMENT,
-  `full_description`  TEXT         NOT NULL,
-  `short_description` VARCHAR(120) NOT NULL,
+  `description_id` INT  NOT NULL AUTO_INCREMENT,
+  `value`          TEXT NOT NULL,
   PRIMARY KEY (`description_id`))
 ENGINE = InnoDB;
 

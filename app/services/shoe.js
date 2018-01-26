@@ -31,6 +31,7 @@ ShoeService = function(ShoeModel) {
    * @returns {*}
    */
   shoeService.update = function(id, shoe) {
+    console.log(shoe);
     return new ShoeModel({shoe_id: parseInt(id)}).save({
       name: shoe.name
     }, {patch: true});
@@ -156,14 +157,10 @@ ShoeService = function(ShoeModel) {
   };
 
   shoeService.attachCollections = function(collections, shoe) {
-    console.log("coucou collections");
-    console.log(collections);
     return shoe.collections().attach(collections);
   };
 
   shoeService.attachCategories = function(categories, shoe) {
-    console.log("coucou categories");
-    console.log(categories);
     return shoe.categories().attach(categories);
   };
 

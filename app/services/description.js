@@ -14,7 +14,7 @@ DescriptionService = function(DescriptionModel) {
    */
   description.add = function(description) {
     return new DescriptionModel({
-      full_description: description
+      value: description
     }).save();
   };
 
@@ -26,7 +26,7 @@ DescriptionService = function(DescriptionModel) {
    */
   description.update = function(id, description) {
     return new DescriptionModel({description_id: parseInt(id)}).save({
-      full_description: description
+      value: description
     }, {patch: true});
   };
 

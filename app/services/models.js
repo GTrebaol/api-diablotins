@@ -81,7 +81,7 @@ module.exports = function(secret, bookshelf) {
     idAttribute: 'user_id',
     hasSecurePassword: true,
     parse: function(attrs) {
-      attrs['is_admin'] = !!attrs['is_admin']
+      attrs['is_admin'] = !!attrs['is_admin'];
       return attrs;
     }
   });
@@ -100,7 +100,7 @@ module.exports = function(secret, bookshelf) {
   models.brand = Brand;
   models.image = Image;
   models.description = Description;
-  
+
   return models;
 
 };
